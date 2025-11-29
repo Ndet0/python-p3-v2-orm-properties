@@ -9,10 +9,50 @@ class Employee:
     all = {}
 
     def __init__(self, name, job_title, department_id, id=None):
+        if not isinstance(department_id, int):
+            raise ValueError("Department ID must be an integer")
+        if not Department.find_by_id(department_id):
+            raise ValueError("Department ID must reference an existing department")
         self.id = id
-        self.name = name
-        self.job_title = job_title
-        self.department_id = department_id
+        self._name = name
+        self._job_title = job_title
+        self._department_id = department_id
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, str):
+            raise ValueError("Name must be a string")
+        if len(value) == 0:
+            raise ValueError("Name must be longer than 0 characters")
+        self._name = value
+
+    @property
+    def job_title(self):
+        return self._job_title
+
+    @job_title.setter
+    def job_title(self, value):
+        if not isinstance(value, str):
+            raise ValueError("Job title must be a string")
+        if len(value) == 0:
+            raise ValueError("Job title must be longer than 0 characters")
+        self._job_title = value
+
+    @property
+    def department_id(self):
+        return self._department_id
+
+    @department_id.setter
+    def department_id(self, value):
+        if not isinstance(value, int):
+            raise ValueError("Department ID must be an integer")
+        if not Department.find_by_id(value):
+            raise ValueError("Department ID must reference an existing department")
+        self._department_id = value
 
     def __repr__(self):
         return (

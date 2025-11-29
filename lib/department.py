@@ -9,8 +9,32 @@ class Department:
 
     def __init__(self, name, location, id=None):
         self.id = id
-        self.name = name
-        self.location = location
+        self._name = name
+        self._location = location
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, str):
+            raise ValueError("Name must be a string")
+        if len(value) == 0:
+            raise ValueError("Name must be longer than 0 characters")
+        self._name = value
+
+    @property
+    def location(self):
+        return self._location
+
+    @location.setter
+    def location(self, value):
+        if not isinstance(value, str):
+            raise ValueError("Location must be a string")
+        if len(value) == 0:
+            raise ValueError("Location must be longer than 0 characters")
+        self._location = value
 
     def __repr__(self):
         return f"<Department {self.id}: {self.name}, {self.location}>"
